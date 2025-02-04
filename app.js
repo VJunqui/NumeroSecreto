@@ -11,7 +11,6 @@ let numeroLimite = 10;
 let numeroSecreto = gerarNumero();
 let tentativas = 1;
 
-// CRIANDO FUNÇÃO
 function exibirTextoNaTela(tag, texto) {
     let campo = document.querySelector(tag)
 campo.innerHTML = texto;
