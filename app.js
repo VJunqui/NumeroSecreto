@@ -6,6 +6,8 @@
 //paragrafo.innerHTML = 'Escolha um número entre 1 e 10';
 
 // ARMAZENAR  VALOR FUNÇÃO gerarNumero EM VARIÀVEL numeroSecreto
+let listaDeNumerosSorteados = [];
+let numeroLimite = 10;
 let numeroSecreto = gerarNumero();
 let tentativas = 1;
 
@@ -36,7 +38,7 @@ function verificarChute() {
         if(chute > numeroSecreto) {
             exibirTextoNaTela('p', 'O número secreto é menor..');
         } else {
-            exibirTextoNaTela('p', 'O número secreto é maior..')
+            exibirTextoNaTela('p', 'O número secreto é maior..');
         }
         tentativas++;
         limparCampo();
@@ -45,7 +47,19 @@ function verificarChute() {
 
 //FUNÇÃO gerarNumero
 function gerarNumero() {
-    return parseInt(Math.random() * 10 + 1);
+    let numeroEscolhido = parseInt(Math.random() * numeroLimite + 1);
+    let quantidadeDeElementosNaLista = listaDeNumerosSorteados.length;
+
+    if (quantidadeDeElementosNaLista == numeroLimite){
+        listaDeNumerosSorteados = [];
+    }
+
+    if (listaDeNumerosSorteados.includes(numeroEscolhido)) {
+        return gerarNumero();
+    } else {
+        listaDeNumerosSorteados.push(numeroEscolhido);
+        return numeroEscolhido;
+    }
 }
 
 // FUNÇÂO LIMPAR CAMPO
