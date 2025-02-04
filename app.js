@@ -1,28 +1,64 @@
+// SUBSTITUÍDO POR FUNÇÃO exibirTextoNaTela
 //let titulo = document.querySelector('h1');
 //titulo.innerHTML = 'Jogo do número secreto';
 
 //let paragrafo = document.querySelector('p');
 //paragrafo.innerHTML = 'Escolha um número entre 1 e 10';
-// SUBSTITUÍDO POR FUNÇÃO
 
+// ARMAZENAR  VALOR FUNÇÃO gerarNumero EM VARIÀVEL numeroSecreto
+let numeroSecreto = gerarNumero();
+let tentativas = 1;
 
 // CRIANDO FUNÇÃO
-let numeroSecreto = gerarNumero();
-
 function exibirTextoNaTela(tag, texto) {
     let campo = document.querySelector(tag)
 campo.innerHTML = texto;
 }
 
-// EXECUTANDO FUNÇÃO
+// CRIANDO FUNÇÃO
+function exibirMensagemInicial() {
 exibirTextoNaTela('h1', 'Jogo do número secreto');
 exibirTextoNaTela('p', 'Escolha um número entre 1 e 10');
- 
-function verificarChute() {
-    let chute = document.querySelector('input').value;
-    console.log(chute == numeroSecreto);
 }
 
+exibirMensagemInicial();
+
+// BOOLEANO FALSE - TRUE
+function verificarChute() {
+    let chute = document.querySelector('input').value;
+    if(chute == numeroSecreto) {
+        exibirTextoNaTela('h1', 'Acertou!');
+        let palavraTentativa = tentativas > 1 ? 'tentativas' : 'tentativa';
+        let mensagemTentativas = `Você descobriu o número secreto com ${tentativas} ${palavraTentativa}!`; 
+        exibirTextoNaTela('p', mensagemTentativas);
+        document.getElementById('reiniciar').removeAttribute('disabled');
+    } else {
+        if(chute > numeroSecreto) {
+            exibirTextoNaTela('p', 'O número secreto é menor..');
+        } else {
+            exibirTextoNaTela('p', 'O número secreto é maior..')
+        }
+        tentativas++;
+        limparCampo();
+    }
+}
+
+//FUNÇÃO gerarNumero
 function gerarNumero() {
     return parseInt(Math.random() * 10 + 1);
+}
+
+// FUNÇÂO LIMPAR CAMPO
+function limparCampo() {
+chute = document.querySelector('input');
+chute.value = '';
+}
+
+// FUNÇÂO REINÍCIO DO JOGO
+function reiniciarJogo(){
+    numeroSecreto = gerarNumero();
+    limparCampo();
+    tentativas = 1;
+    exibirMensagemInicial();
+    document.getElementById('reiniciar').setAttribute('disabled', true);
 }
